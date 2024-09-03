@@ -4,6 +4,6 @@ import lombok.NonNull;
 import lombok.Value;
 
 @Value
-public class CalculateResponse {
+public class CalculatePayResponse {
     @NonNull Double vacationPay;
 }
