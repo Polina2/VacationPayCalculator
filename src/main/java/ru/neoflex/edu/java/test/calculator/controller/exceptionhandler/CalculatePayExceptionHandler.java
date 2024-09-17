@@ -2,6 +2,7 @@ package ru.neoflex.edu.java.test.calculator.controller.exceptionhandler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.neoflex.edu.java.test.calculator.dto.ApiErrorResponse;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class CalculatePayExceptionHandler {
-    @ExceptionHandler({NullPointerException.class, IllegalArgumentException.class})
+    @ExceptionHandler({NullPointerException.class, IllegalArgumentException.class, BindException.class})
     public ResponseEntity<ApiErrorResponse> handleBadRequest(Exception e) {
         return new ResponseEntity<>(
                 createError(

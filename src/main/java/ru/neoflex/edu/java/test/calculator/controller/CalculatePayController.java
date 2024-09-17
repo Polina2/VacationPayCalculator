@@ -8,6 +8,7 @@ import ru.neoflex.edu.java.test.calculator.dto.CalculatePayResponse;
 import ru.neoflex.edu.java.test.calculator.service.CalculatePayService;
 import ru.neoflex.edu.java.test.calculator.service.DateCountService;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 
 @RestController
@@ -17,17 +18,24 @@ public class CalculatePayController {
     private final DateCountService dateCountService;
 
     @GetMapping("/calculate")
-    public CalculatePayResponse calculate(CalculatePayRequest request) {
+    public CalculatePayResponse calculate(@Valid CalculatePayRequest request)
+            throws NullPointerException, IllegalArgumentException {
         boolean isDaysCountNull = request.getDaysCount() == null;
         boolean isStartDateNull = request.getStartDate() == null;
+        LocalDate endDate = (request.getEndDate() == null ? LocalDate.now() : request.getEndDate());
+
         if (isDaysCountNull && isStartDateNull)
             throw new NullPointerException("The number of days or dates of vacation must be specified");
         if (!isStartDateNull) {
+            if (request.getStartDate().getYear() < 0 || endDate.getYear() < 0)
+                throw new IllegalArgumentException("The year should be positive");
             Integer dateDifference =
                     dateCountService.countDaysWithoutHolidays(
                             request.getStartDate(),
-                            (request.getEndDate() == null ? LocalDate.now() : request.getEndDate())
+                            endDate
                     );
+            if (dateDifference <= 0)
+                throw new IllegalArgumentException("Start date should be earlier than end date");
             if (isDaysCountNull || request.getDaysCount().equals(dateDifference))
                 return new CalculatePayResponse(
                         calculatePayService.calculatePay(request.getAvgSalary(), dateDifference)
