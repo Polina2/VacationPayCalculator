@@ -1,4 +1,4 @@
-package ru.neoflex.edu.java.test.calculator;
+package ru.neoflex.edu.java.test.calculator.unittest;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;

@@ -1,4 +1,4 @@
-package ru.neoflex.edu.java.test.calculator;
+package ru.neoflex.edu.java.test.calculator.aggregator;
 
 import org.junit.jupiter.api.extension.ParameterContext;
 import org.junit.jupiter.params.aggregator.ArgumentsAccessor;

@@ -1,10 +1,12 @@
-package ru.neoflex.edu.java.test.calculator;
+package ru.neoflex.edu.java.test.calculator.unittest;
 
 import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.aggregator.AggregateWith;
 import org.junit.jupiter.params.provider.CsvSource;
+import ru.neoflex.edu.java.test.calculator.aggregator.CalculatePayRequestAggregator;
+import ru.neoflex.edu.java.test.calculator.aggregator.CalculatePayResponseAggregator;
 import ru.neoflex.edu.java.test.calculator.controller.CalculatePayController;
 import ru.neoflex.edu.java.test.calculator.dto.CalculatePayRequest;
 import ru.neoflex.edu.java.test.calculator.dto.CalculatePayResponse;
@@ -34,7 +36,7 @@ public class CalculatePayControllerTest {
     public void nullPointerExceptionTest(
             @AggregateWith(CalculatePayRequestAggregator.class) CalculatePayRequest request
     ) {
-        Assertions.assertThrows(NullPointerException.class, () -> {calculatePayController.calculate(request);});
+        Assertions.assertThrows(NullPointerException.class, () -> calculatePayController.calculate(request));
     }
 
     @ParameterizedTest
@@ -47,7 +49,7 @@ public class CalculatePayControllerTest {
     public void illegalArgumentExceptionTest(
             @AggregateWith(CalculatePayRequestAggregator.class) CalculatePayRequest request
     ) {
-        Assertions.assertThrows(IllegalArgumentException.class, () -> {calculatePayController.calculate(request);});
+        Assertions.assertThrows(IllegalArgumentException.class, () -> calculatePayController.calculate(request));
     }
 
     @Test
