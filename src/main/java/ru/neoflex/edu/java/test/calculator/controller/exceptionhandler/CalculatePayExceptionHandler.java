@@ -23,7 +23,7 @@ public class CalculatePayExceptionHandler {
 
     private ApiErrorResponse createError(Exception e, Integer code) {
         return new ApiErrorResponse(
-                code, e.toString(), e.getMessage(),
+                code, e.getClass().getCanonicalName(), e.getMessage(),
                 Arrays.stream(e.getStackTrace()).map(StackTraceElement::toString).collect(Collectors.toList())
         );
     }
